@@ -1,0 +1,987 @@
+---
+title: "Increasing design system quality and adoption by proper stakeholder management"
+# Incude global styles here
+style: >
+  body {
+    margin: 0
+  }
+  .slide.slide--highlighted h3 {
+    color: white;
+  }
+  .no-title h2 {
+    display: none;
+  }
+  .slide .shout.shout--small {
+    font-size: 90px;
+  }
+  .slide h2.shout--highlighted {
+    color: #38bcc2;
+  }
+  .timeline {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+    margin-top: 100px;
+  }
+  .timeline__item {
+    position: relative;
+
+    background: transparent;
+    padding: 5px;
+    width: 255px;
+    height: 255px;
+    margin: 5px;
+
+    border: tomato 3px solid;
+    
+    line-height: 255px;
+    font-weight: bold;
+    font-size: 5em;
+    text-align: center;
+  }
+  .timeline__item-name {
+    position: absolute;
+    top: -16px;
+    left: 75px;
+
+    width: 100px;
+
+    font-size: 24px;
+    line-height: 32px;
+
+    background: white;
+    border: tomato 3px solid;
+  }
+  .timeline__item--position-1 {
+    order: 1;
+  }
+  .timeline__item--position-2 {
+    order: 2;
+  }
+  .timeline__item--position-3 {
+    order: 3;
+  }
+  .timeline__item-icon {
+    width: 150px;
+    margin: 52px;
+    margin-top: 45px;
+  }
+  .team-top {
+    animation-name: fade;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+    animation-direction: alternate;
+  }
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  .space-label {
+    width: 340px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    line-height: 1em;
+    transform: rotate(15deg);
+  }
+  .space-label .top,
+  .space-label .bottom {
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    width: 170px;
+    margin: 0 auto;
+  }
+  .space-label .top .ring,
+  .space-label .bottom .ring {
+    border-radius: 100%;
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border: 3px solid #999;
+    border-width: 8px;
+  }
+  .space-label .top .ring:nth-child(2),
+  .space-label .bottom .ring:nth-child(2) {
+    border-width: 4px;
+    width: 154px;
+  }
+  .space-label .top .ring:nth-child(3),
+  .space-label .bottom .ring:nth-child(3) {
+    border-width: 2px;
+    width: 139px;
+  }
+  .space-label .top .ring:nth-child(3):after,
+  .space-label .bottom .ring:nth-child(3):after {
+    content: "";
+    width: 18px;
+    position: absolute;
+    border-top: 1px solid #999;
+    left: 50%;
+    margin-left: -9px;
+  }
+  .space-label .top .ring:nth-child(3):before,
+  .space-label .bottom .ring:nth-child(3):before {
+    content: "";
+    width: 32px;
+    position: absolute;
+    border-top: 1px solid #999;
+    margin-left: -16px;
+    left: 50%;
+  }
+  .space-label .top .ring:nth-child(1) {
+    top: 0;
+    left: 0;
+  }
+  .space-label .top .ring:nth-child(2) {
+    top: 10px;
+    left: 8px;
+  }
+  .space-label .top .ring:nth-child(3) {
+    top: 20px;
+    left: 16px;
+  }
+  .space-label .top .ring:nth-child(3):after {
+    top: 17px;
+  }
+  .space-label .top .ring:nth-child(3):before {
+    top: 22px;
+  }
+  .space-label .bottom .ring:nth-child(1) {
+    bottom: 0;
+    left: 0;
+  }
+  .space-label .bottom .ring:nth-child(2) {
+    bottom: 10px;
+    left: 8px;
+  }
+  .space-label .bottom .ring:nth-child(3) {
+    bottom: 20px;
+    left: 16px;
+  }
+  .space-label .bottom .ring:nth-child(3):after {
+    bottom: 17px;
+  }
+  .space-label .bottom .ring:nth-child(3):before {
+    bottom: 22px;
+  }
+  .space-label .text {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Raleway", sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: #999;
+    height: 55px;
+    vertical-align: middle;
+    display: table-cell;
+    width: 340px;
+    position: relative;
+    left: 7px;
+    letter-spacing: 14px;
+  }
+    #chart {
+    position: relative;
+    background-color: #fff;
+    width: 700px;
+    height: 700px;
+    margin: 0 auto;
+  }
+
+  #card_container {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background-color: #fff;
+    border: 1px solid orange;
+    border-radius: 50%;
+    display: none;
+    font-family: sans-serif;
+    font-size: 20px;
+    pointer-events: none;
+  }
+
+  #card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  #card h2,
+  #card p {
+    margin: 0;
+  }
+
+  #name {
+    font-family: Verlag;
+    font-weight: bold;
+    padding-bottom: 1rem;
+  }
+
+  #team {
+    font-size: 16px;
+  }
+
+  #sub_team,
+  #responsibility {
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .arc:hover {
+    fill: #0019AF;
+  }
+
+  .circle-person:hover {
+    fill: orange;
+  }
+
+  text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+    fill: #fff;
+  }
+# Include footer content here or remove it
+footer: >
+  <footer class="badge">
+      <a href="https://github.com/varya/devtalks-2021" target="_blank" rel="noopener">Fork me on GitHub</a>
+  </footer>
+# Include data for generating meta tags
+meta:
+  description: >
+    Increasing design system quality and adoption by proper stakeholder management
+  cover: ./pictures/round-dance.jpg
+  author: Varya Stepanova
+  website: https://varya.me/devtalks-2021/
+  twitter: varya_en
+---
+
+
+
+
+## Increasing design system quality and adoption by proper stakeholder management
+{#cover}
+
+<Cover src="pictures/round-dance.jpg" alt=""/>
+
+<div className="gap"></div>
+
+[Varya Stepanova](https://varya.me) @ Smartly DevTalks 2021
+
+<style>{`
+  #cover {
+    padding-left: 60px;
+    background-color: black;
+    color: white;
+  }
+  #cover::after {
+    display: none;
+  } 
+  #cover h2 {
+    color: white;
+    margin: 60px 0 30px;
+    font-size: 50px;
+    font-family: FF Meta Serif, sans-serif;
+    line-height: 1.25em;
+    margin-top: 275px;
+    margin-bottom: 0;
+  }
+
+  #cover h3 {
+    width: 50%;
+  }
+
+  #cover p {
+    margin: 10px 0 0;
+    font-style: italic;
+    font-size: 20px;
+    width: 50%;
+    line-height: 1.5em;
+  }
+  #cover .gap {
+    height: 10px;
+  }
+`}</style>
+
+<!--
+Annotation
+
+I will tell about stakeholder management when building and maintaining design systems.
+Through the whole design system workflow, its team communicates to the people across
+the whole company: designers and developers, product managers, and business people.
+Let's see how do we, the design system techies, might make these people happy.
+-->
+
+## Me
+{ .no-title .about-me }
+
+![](pictures/selfie.jpg){ .photo }
+
+### Varya Stepanova
+<b>Design Systems Architect</b><br/>
+<small>engineering manager, frontend architect, independent consultant</small>
+
+#### Contacts
+<div className="contacts">
+  <span className="linkedin"></span><a href="https://www.linkedin.com/in/varyastepanova/">linkedin.com/in/varyastepanova</a>
+  <br/>
+  <span className="globe"></span><a href="http://varya.me">varya.me</a>
+  <br/>
+  <span className="twitter"></span><a href="https://twitter.com/varya_en">@varya_en</a>
+</div>
+
+
+<style>{`
+.about-me p {
+  font-size: 80%;
+}
+.about-me .photo {
+  float: left;
+  width: 300px;
+  margin-top: 1em;
+  margin-bottom: 6em;
+  margin-right: 1em;
+  border-radius: 50%;
+}
+
+.about-me h4 {
+  color: #ca4e1f;
+  font: 1em/1 'FF Meta Serif',sans-serif;
+  margin-bottom: .5em;
+}
+.about-me b {
+  font-size: 1.25em;
+}
+
+.about-me .contacts {
+  line-height: 1.5em;
+  font-size: 0.8em;
+}
+
+.about-me .twitter
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/twitter-logo.png);
+  background-size: cover;
+  margin-right: 0.5em;
+  margin-bottom: -0.25em;
+}
+.about-me .linkedin
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/linkedin-logo.png);
+  background-size: cover;
+  margin-right: 0.5em;
+  margin-bottom: -0.25em;
+}
+.about-me .globe
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/globe.png);
+  background-size: 1.15em;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5em;
+  margin-bottom: -0.5em;
+}
+`}</style>
+
+<!--
+
+My name is Varya. I work as an independent consultant, and design systems are my
+major focus. I started with libraries of components about 10 years ago,
+before the term "design systems" even emerged.
+
+By that time, my own understanding and the community's was more technical.
+We were paying a lot of attention to how to code the components,
+how to document them.
+
+Slightly by today, I changed my focus to more process and people oriented.
+I realised that the biggest obstacle on the way is the gap between specialists:
+designers and developers, product people and business people. In the meanwhile
+I got a design education that helped me to see the picture at scale.
+
+Nowadays, even though I am still doing a lot of hands-on and architectural frontend
+work related to the design systems, I shift to engineering&project management, educating,
+and enganging people.
+
+-->
+
+
+## Design Systems are for people
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xlxqbf4s8Tk" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+Also available in a [text version](https://publication.design.systems/design-systems-are-for-people-a484620b6988)
+
+<!--
+To start with the topic, I would like first refer to many other talks,
+articles and blog posts that highlight the "people" aspect of design systems.
+
+I strongly relate it.
+-->
+
+
+## Why? What? How? For whom?
+{ .no-title }
+
+<Blockquote style={{ marginTop: '2em'}} caption={
+  <>
+    Magera Moon,&nbsp;
+    <a href="https://publication.design.systems/design-systems-are-for-people-a484620b6988">
+      The people part of design systems
+    </a>
+  </>
+}>
+Making design systems successful is just as much about creating a people system as it is about creating a technical or operational one.
+</Blockquote>
+
+<Blockquote style={{ marginTop: '2em'}} className="next" caption={
+  <>
+    Ryan DeBeasi,&nbsp;
+    <a href="https://www.smashingmagazine.com/2019/10/design-systems-relationships/">
+      Design Systems Are About Relationships
+    </a>
+  </>
+}>
+To build a design system, don’t start by writing code and choosing tools; <b>start by talking to the people who will use the system</b>. Learn about their needs and constraints, and help them solve problems.
+</Blockquote>
+
+## To boost<br/>a&nbsp;design system {.shout .shout--small .shout--highlighted }
+
+
+## focus on people {.shout .shrink}
+
+
+## But... how? {.shout}
+{.but-how}
+
+
+<style>{`
+.but-how h2 {
+  color: #fff;
+  font-size: 92px;
+  font-family: "ubuntu";
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  background: linear-gradient(to right, #38bcc2 10%, #ca4e1f 50%, #e69445 60%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 1.5s linear infinite;
+  display: inline-block;
+}
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
+}
+`}</style>
+
+
+
+
+## What does design system team do?
+{ .slide--shout .slide--primary }
+
+## What does design system team REALLY<br/> do? {.shout}
+{ .really }
+
+<style>{`
+
+.really .shout {
+  font-size: 120px;
+}
+
+`}</style>
+
+
+## Design system work
+{ .work }
+
+![](pictures/triangle.png){ .triangle }
+**User-centered design system resources**<br/>
+*Lyft Design Systems Team @ Schema 2021*<br/>
+[https://youtu.be/Pqm8LkB44gU](https://youtu.be/Pqm8LkB44gU)
+
+<style>{`
+
+.shower .slide.work {
+  font-size: 16px; 
+}
+
+.work .triangle {
+  float: left;
+  height: 400px;
+}
+
+`}</style>
+
+
+## Design system work
+{ .work2 }
+
+![](pictures/iceberg.png){ .image }
+
+### 1. The product part
+{ .first-header }
+
+### 2. Everything else
+
+<style>{`
+
+.work2 .image {
+  height: 400px;
+  float: left;
+}
+
+.work2 .first-header {
+  margin-top: 140px;
+}
+
+.work2 h3 {
+  margin-left: 450px;
+}
+
+`}</style>
+
+
+## The product
+
+- UI kit
+- React Library
+- Web Components Library
+- Design tokens package
+
+
+## In and out
+{ .in-and-out }
+
+<Columns col="2">
+
+- Bug reports { .in }
+- Feedback & suggestions
+- Questions and help requests
+
+
+
+- Releases
+- Incident warnings
+- Announces
+
+</Columns>
+
+
+## Channels of Communication
+
+- Design system website
+- Slack/Flowdock/Teams
+- GitHub
+- Design & development forums
+
+
+## Clear picture of the system
+{ .slide--shout .slide--highlighted }
+
+
+## What is available?
+{ .no-title }
+
+### What component is available what is not?
+
+### What components are soon coming?
+
+### What is current status of a component?
+
+![](pictures/travolta.gif){ .next }
+
+
+## Expectations
+{ .no-title .slide--shout }
+
+<Blockquote caption="Raphael Malveau and Thomas J. Mowbray, Ph.D.">
+Expectation management is one of the most powerful weapons in psychological warfare.
+</Blockquote>
+
+
+## Component status map
+{ .component-status-map }
+
+![](pictures/component-status-map.png){ .status-map-image }
+
+Idea from ["Design System Features, Step-by-Step" by Nathan Curtis](https://medium.com/eightshapes-llc/system-features-step-by-step-e69c90982630)
+
+See in action at [Polaris design system](https://polaris.shopify.com/components/component-status#navigation)
+
+<style>{`
+
+.component-status-map .status-map-image {
+  height: 350px;
+  margin-right: 1em;
+  float: left;
+}
+
+.component-status-map p {
+  line-height: 1.25em;
+}
+
+`}</style>
+
+
+## Status on the component page
+
+Where in the flow is it? research/design/development/testing
+
+What platforms is it available for? (e.g [Card @ Orbit](https://orbit.kiwi/components/structure/card/#component-status))
+
+Is it deprectaed? (e.g. [Theme Swicth @ Wanda](https://design.wonderflow.ai/components/other/theme-switch/))
+
+What is coming? (e.g. [Avatar @ Lightning](https://www.lightningdesignsystem.com/components/avatar/))
+
+## Communication about the process
+{ .slide--shout .slide--primary }
+
+
+## Open backlog policy
+{ .backlog-policy }
+
+![](pictures/backlog-policy.png){ .image }
+
+<style>{`
+
+.backlog-policy .image {
+  height: 425px;
+}
+
+`}</style>
+
+
+## What do we get?
+
+- Open process and clear message about resources
+- Ready contribution requests
+- Knowledge of who is interested in a component
+
+
+
+## Linking to the people
+{ .slide--shout .slide--primary-light }
+
+
+
+## Where components are used?
+{ .where-used }
+
+![](pictures/google-sheets.png){ .image }
+
+Example link: http://bit.ly/ds-matrix-example
+
+<style>{`
+
+.where-used .image {
+  height: 350px;
+  margin-bottom: 0;
+}
+
+`}</style>
+
+## Who is using components?
+{ .who-is-using }
+
+![](pictures/teams.png){ .image }
+
+<style>{`
+
+.who-is-using .image {
+  height: 350px;
+}
+
+`}</style>
+
+
+## Tools for stakeholder management
+
+- Excel / Google Sheets
+- Google DataStuido
+- Own solutions
+
+
+## Address to certain people personally
+
+* Library has critical updates in particular components
+* Ask for feedback about upcoming changes
+* Someone is not using the component. Why?
+* Design system team is searching for contributors
+* Team search for other teams using the same component
+
+
+## How to meet new people?
+{ .slide--shout .slide--highlighted }
+
+
+## Onboarding sessions
+{ .onboarding-sessions }
+
+![](pictures/calendar.png){ .image }
+
+*e.g.* **every 1st Wednesday of the month**
+
+- for designers
+- for developers
+- for project owners
+
+<style>{`
+
+.onboarding-sessions .image {
+  float: right;
+  width: 350px;
+}
+
+`}</style>
+
+
+## How to go with innovations?
+{ .slide--shout .slide--primary }
+
+
+## Proof of Concept / MVP
+{ .slide--shout }
+
+
+## Feedback
+{ .no-title }
+
+<Cover src="pictures/feedback.jpeg" alt=""/>
+
+
+## How to get feedback
+
+Explain why it is needed
+
+Use all the possible public forums
+
+Ask people personally and tell the how they would benefit
+
+Organize try-on session 
+
+
+
+## Design system is product
+{ .slide--shout .slide--primary-light }
+
+
+
+## Look around
+
+### What do other design systems do?
+
+- Branding
+- Shared ownership: contribution guidelines, mentioning contributors, links to editing
+- Positions in DS team
+- Flows and trees
+
+### Continue with benchmarking
+{ .next }
+
+
+## Up to the business levels
+{ .slide--shout .slide--highlighted }
+
+
+## Business value of design system
+{ .business-value }
+
+<Cover src="pictures/money.jpg" alt=""/>
+
+- Faster design and development
+- Fewer costs
+- "Time to market" decreased
+- Doing "real work"
+
+
+<style>{`
+
+.business-value .cover {
+  opacity: 0.25;
+}
+
+`}</style>
+
+
+## Getting mature
+{ .getting-mature }
+
+<div class="arrow">⬅</div>
+
+![](pictures/maturity-model.png){ .image }
+
+<style>{`
+
+.getting-mature .image {
+  height: 400px;
+}
+
+.getting-mature .arrow {
+  font-size: 200px;
+  color: #fff;
+  font-family: "ubuntu";
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  background: linear-gradient(to right, #38bcc2 10%, #ca4e1f 50%, #e69445 60%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 1.5s linear infinite;
+  display: inline-block;
+  position: absolute;
+  top: 50px;
+  right: 250px;
+
+}
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
+}
+
+`}</style>
+
+
+## Stakeholder management is<br/> one of the design system's processes
+{ .slide--shout }
+
+
+## Invest time {.shout .shrink}
+
+## Get structured {.shout}
+
+## Manage {.shout}
+{.but-how}
+
+
+## Thank you
+{ .thanks }
+
+![](pictures/selfie.jpg){ .photo }
+
+#### [Slides: varya.me/devtalks-2021/](https://varya.me/devtalks-2021/)
+
+#### by Varya Stepanova
+
+<div className="contacts">
+  <span className="linkedin"></span><a href="https://www.linkedin.com/in/varyastepanova/">linkedin.com/in/varyastepanova</a>
+  <br/>
+  <span className="globe"></span><a href="http://varya.me">varya.me</a>
+  <br/>
+  <span className="twitter"></span><a href="https://twitter.com/varya_en">@varya_en</a>
+</div>
+
+
+
+<style>{`
+
+.thanks h3 {
+  font-size: 28px;
+  margin-bottom: 0.5em;
+  margin-top: 1em;
+  line-height: 1.25em;
+  font-family: "Graphik Light";
+}
+
+.thanks .slides,
+.thanks .slides a {
+  color: #ca4e1f;
+  font-family: "Graphik Light";
+  text-transform: none;
+}
+
+.thanks .photo {
+  float: left;
+  width: 150px;
+  margin-top: 1em;
+  margin-bottom: 8em;
+  margin-right: 1em;
+  border-radius: 50%;
+}
+
+.thanks .contacts {
+  line-height: 1.5em;
+  font-size: 0.8em;
+}
+.thanks .contacts li:before {
+  content: '';
+}
+
+.thanks .twitter
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/twitter-logo.png);
+  background-size: cover;
+  margin-right: 0.5em;
+  margin-bottom: -0.5em;
+}
+.thanks .linkedin
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/linkedin-logo.png);
+  background-size: cover;
+  margin-right: 0.5em;
+  margin-bottom: -0.25em;
+}
+.thanks .globe
+{
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  background-image:url(pictures/globe.png);
+  background-size: 1.15em;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5em;
+  margin-bottom: -0.5em;
+}
+`}
+</style>
